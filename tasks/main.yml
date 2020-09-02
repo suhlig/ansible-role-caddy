@@ -1,0 +1,22 @@
+- name: Caddy APT repo is available
+  copy:
+    dest: /etc/apt/sources.list.d/caddy-fury.list
+    content: |
+      deb [trusted=yes] https://apt.fury.io/caddy/ /
+  tags: [ apt, caddy ]
+
+- name: Caddy is installed
+  apt:
+    name:
+      - caddy
+    state: present
+    update_cache: true
+  tags: [ apt, caddy, http, server ]
+
+- name: Caddy is configured
+  template:
+    src: caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+  tags: [ caddy, http, server, tls, ssl, letsencrypt ]
+  notify:
+  - Caddy config was reloaded

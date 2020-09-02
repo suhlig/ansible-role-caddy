@@ -1,0 +1,10 @@
+- name: Caddy is restarted
+  service:
+    name: caddy
+    state: restarted
+    enabled: true
+  tags: [ caddy, http, server, systemd, restart ]
+
+- name: Caddy config was reloaded
+  command: caddy reload --config /etc/caddy/Caddyfile
+  tags: [ caddy, http, server, systemd, reload ]

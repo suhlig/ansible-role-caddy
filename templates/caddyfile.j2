@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+# https://caddyserver.com/docs/caddyfile
+{
+  {% if acme_url is defined %}
+  acme_ca {{ acme_url }}
+  {% endif %}
+  email {{ letsencrypt_email_address }}
+}
+
+# Other services may put their Caddyfiles here as something.caddy
+import /etc/caddy/*.caddy
